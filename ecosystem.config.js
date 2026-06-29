@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: "old-studio-bot",
+    name: "lewz-md-bot",
     script: "./index.js",
     watch: false,
     autorestart: true,
