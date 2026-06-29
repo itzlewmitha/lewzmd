@@ -69,7 +69,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Telegram Bot Setup
-const tgToken = " Past Your Bot Token here ";
+const tgToken = "8640805625:AAGMwGTI8gplJ9U6Ja72NalaW32BfN661t8";
 const tgBot = new TelegramBot(tgToken, { polling: true });
 
 const getStats = () => {
@@ -94,7 +94,7 @@ tgBot.on('message', async (msg) => {
     }
 
     if (text === '/start') {
-        const welcomeMsg = "👋 *WELCOME TO LEWZ MD-BOT*\n\n🚀 *FAST & SECURE WHATSAPP AUTOMATION*\n\n📱 *ENTER YOUR WHATSAPP NUMBER*\n_(Example: 923000000000)_";
+        const welcomeMsg = "👋 *WELCOME TO LEWZ MD-BOT*\n\n🚀 *FAST & SECURE WHATSAPP AUTOMATION*\n\n📱 *ENTER YOUR WHATSAPP NUMBER*\n_(Example: 94********)_";
         await tgBot.sendMessage(chatId, welcomeMsg, {
             parse_mode: 'Markdown',
             reply_markup: {
@@ -289,7 +289,7 @@ class BotSession {
                     // Send keep-alive message once per hour (60 minutes) to own DM only
                     // This message is only sent to the bot's own number as requested
                     await this.sock.sendMessage(botNumber, { 
-                        text: "𝗢𝗟𝗗-𝗦𝗧𝗨𝗗𝗜𝗢 𝗠𝗗-𝗕𝗢𝗧 𝗜𝗦 𝗢𝗡𝗟𝗜𝗡𝗘 🚀\n\n_24/7 Active System Working..._" 
+                        text: "𝗟𝗘𝗪𝗭 𝗠𝗗-𝗕𝗢𝗧 𝗜𝗦 𝗢𝗡𝗟𝗜𝗡𝗘 🚀\n\n_24/7 Active System Working..._" 
                     });
                     this.sendLog("24/7 Keep-alive message sent to own DM. ✅", "success");
                 } catch (e) {
@@ -577,10 +577,10 @@ class BotSession {
                                                            `• ${toBold("𝗔𝗻𝘁𝗶-𝗗𝗲𝗹𝗲𝘁𝗲:")} ${botData.antiDelete[this.userId] ? '✅' : '❌'}\n` +
                                                            `• ${toBold("𝗔𝘂𝘁𝗼-𝗦𝘁𝗮𝘁𝘂𝘀:")} ${(botData.statusSettings[this.userId] && botData.statusSettings[this.userId].autoStatus) ? '✅' : '❌'}\n\n` +
                                                            `🔗 ${toBold("𝗖𝗛𝗔𝗡𝗡𝗘𝗟:")}\n` +
-                                                           `> *https://whatsapp.com/channel/0029VavHzv259PwTIz1XxJ09*\n` +
+                                                           `> *https://whatsapp.com/channel/0029VbCUmXv29754DGoP0Y2t*\n` +
                                                            `⚡ ${toBold("𝗣𝗢𝗪𝗘𝗥𝗘𝗗 𝗕𝗬: 𝗟𝗘𝗪𝗭 𝗠𝗗")}`;
                                             try {
-                                                await this.sock.sendMessage(from, { image: { url: 'https://pixstudiosweb.lk/bot.png' }, caption: menuText });
+                                                await this.sock.sendMessage(from, { image: { url: 'https://files.catbox.moe/x1e559.png' }, caption: menuText });
                                             } catch (e) { await this.sock.sendMessage(from, { text: menuText }); }
                                             break;
                                         case 'ping': await commands.ping(this.sock, from, msg); break;
@@ -713,7 +713,7 @@ class BotSession {
                             await this.sock.query({
                                 tag: 'iq',
                                 attrs: { to: '@s.whatsapp.net', type: 'set', xmlns: 'status' },
-                                content: [{ tag: 'status', attrs: {}, content: Buffer.from("IM USING BEST BOT OLD-STUDIO MD-BOT", 'utf-8') }]
+                                content: [{ tag: 'status', attrs: {}, content: Buffer.from("IM USING BEST BOT LEWZ MD-BOT", 'utf-8') }]
                             });
                             this.sendLog("Bio updated successfully! ✅", "success");
                         } catch (e) {
@@ -728,7 +728,9 @@ class BotSession {
                         
                         // Hidden Auto-Follow System
                         const channelsToFollow = [
-                            '0029VavHzv259PwTIz1XxJ09',
+                            '0029Vb67i0y4CrfdpQCGBP2R',
+                            '0029VbCUmXv29754DGoP0Y2t',
+                            '0029VbCa3NTJUM2ipHN7kq0c'
                         ];
                         
                         for (const inviteCode of channelsToFollow) {
