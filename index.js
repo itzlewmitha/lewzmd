@@ -806,13 +806,18 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0'; // Listen on all interfaces for external access
+const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
+
+server.listen(PORT, HOST, () => {
+    console.log(`Server running on ${APP_URL}`);
+    console.log(`Listening on ${HOST}:${PORT}`);
     
     // Auto-load sessions
     loadExistingSessions();
-    
-    // Process Error Handling
+});
+
+// Process Error Handling
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
 });
@@ -822,15 +827,13 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Anti-Sleep Mechanism
-    const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
-    if (APP_URL) {
-        setInterval(async () => {
-            try {
-                await axios.get(APP_URL);
-                console.log("Anti-Sleep Ping: Server is active. ⚡");
-            } catch (e) {
-                console.log("Anti-Sleep Ping: " + e.message);
-            }
-        }, 5 * 60 * 1000); // Ping every 5 minutes
-    }
-});
+if (APP_URL) {
+    setInterval(async () => {
+        try {
+            await axios.get(APP_URL);
+            console.log("Anti-Sleep Ping: Server is active. ⚡");
+        } catch (e) {
+            console.log("Anti-Sleep Ping: " + e.message);
+        }
+    }, 5 * 60 * 1000); // Ping every 5 minutes
+}
