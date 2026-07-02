@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 async function tiktokCommand(sock, from, msg) {
     try {
         const messageContent = msg.message?.ephemeralMessage?.message || msg.message?.viewOnceMessage?.message || msg.message?.viewOnceMessageV2?.message || msg.message;
@@ -12,14 +10,19 @@ async function tiktokCommand(sock, from, msg) {
         for (const emoji of loadEmojis) {
             await sock.sendMessage(from, { react: { text: emoji, key: msg.key } });
         }
-        const res = await axios.get(`https://tikwm.com/api/?url=${q}`);
-        if (res.data && res.data.data && res.data.data.play) {
-            const videoUrl = res.data.data.play;
+
+        const res = await fetch(`https://tikwm.com/api/?url=${q}`, {
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+        }).then(r => r.json());
+
+        if (res && res.data && res.data.play) {
+            const videoUrl = res.data.play;
             await sock.sendMessage(from, { video: { url: videoUrl }, caption: "✅ TIKTOK DOWNLOADED BY LEWZ-MD" }, { quoted: msg });
         } else {
             throw new Error("Invalid response from TikTok API");
         }
     } catch (e) {
+        console.error('TikTok error:', e.message);
         await sock.sendMessage(from, { text: "❌ Error downloading TikTok. Make sure the link is valid." }, { quoted: msg });
     }
 }

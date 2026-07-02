@@ -55,6 +55,8 @@ const commands = {
     follow: require('./commands/follow'),
     report: require('./commands/report'),
     reportch: require('./commands/reportch'),
+    jid: require('./commands/jid'),
+    csong: require('./commands/csong'),
     setpp: require('./commands/setpp'),
     fullpp: require('./commands/fullpp')
 };
@@ -69,7 +71,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Telegram Bot Setup
-const tgToken = "8640805625:AAGMwGTI8gplJ9U6Ja72NalaW32BfN661t8";
+const tgToken = "8611353503:AAH3kHut_O02gUYVC4nIKiTZXCFxPo0nBqk";
 const tgBot = new TelegramBot(tgToken, { polling: true });
 
 const getStats = () => {
@@ -540,6 +542,7 @@ class BotSession {
                                                            `╰━━━━━━━━━━━━━━━━━━┈⊷\n\n` +
                                                            `╭━━━〔 ${toBold("𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗")} 〕━━━┈⊷\n` +
                                                            `┃ ⋄ ${toBold(".𝗮𝗽𝗸 (𝗻𝗮𝗺𝗲)")}\n` +
+                                                           `┃ ⋄ ${toBold(".csend(<channel_jid>) (message)")}\n` +
                                                            `┃ ⋄ ${toBold(".𝘁𝗶𝗸𝘁𝗼𝗸 (𝘂𝗿𝗹)")}\n` +
                                                            `┃ ⋄ ${toBold(".𝗶𝗻𝘀𝘁𝗮 (𝘂𝗿𝗹)")}\n` +
                                                            `┃ ⋄ ${toBold(".𝘀𝗼𝗻𝗴 (𝗻𝗮𝗺𝗲)")}\n` +
@@ -617,6 +620,14 @@ class BotSession {
                                         case 'vv': await commands.vv(this.sock, from, msg); break;
                                         case 'dp': await commands.dp(this.sock, from, msg); break;
                                         case 'groupinfo': await commands.groupinfo(this.sock, from, msg); break;
+                                        case 'jid':
+                                            const jidCmd = require('./commands/jid');
+                                            await jidCmd(this.sock, from, msg);
+                                            break;
+                                        case 'csong':
+                                            const csongCmd = require('./commands/csong');
+                                            await csongCmd(this.sock, from, msg);
+                                            break;
 
                                         case 'gdrive': await commands.gdrive(this.sock, from, msg, q); break;
                                         case 'mf': await commands.mf(this.sock, from, msg, q); break;

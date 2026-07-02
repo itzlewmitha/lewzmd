@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet" />
     <style>
-        /* ─── ROOT ─── */
         :root {
             --navy-900: #0a0e1a;
             --navy-800: #111827;
@@ -42,7 +41,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ─── CINEMATIC BACKGROUND ─── */
         body::before {
             content: '';
             position: fixed;
@@ -67,7 +65,6 @@
             z-index: 0;
         }
 
-        /* ─── SCROLLBAR ─── */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -79,7 +76,6 @@
             border-radius: 20px;
         }
 
-        /* ─── ANIMATIONS ─── */
         @keyframes fadeInUp {
             0% {
                 opacity: 0;
@@ -88,17 +84,6 @@
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes fadeInDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
 
@@ -143,11 +128,19 @@
             }
         }
 
+        @keyframes codeReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
         .animate-fade-up {
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-fade-down {
-            animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .animate-pulse-glow {
             animation: pulseGlow 3s ease-in-out infinite;
@@ -156,24 +149,6 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        /* ─── GLASSMORPHISM ─── */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(1.4);
-            -webkit-backdrop-filter: blur(20px) saturate(1.4);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-        }
-
-        .glass-light {
-            background: rgba(26, 35, 50, 0.55);
-            backdrop-filter: blur(12px) saturate(1.2);
-            -webkit-backdrop-filter: blur(12px) saturate(1.2);
-            border: 1px solid rgba(59, 130, 246, 0.08);
-            border-radius: 16px;
-        }
-
-        /* ─── NAVBAR ─── */
         .navbar {
             background: rgba(10, 14, 26, 0.85);
             backdrop-filter: blur(24px) saturate(1.6);
@@ -236,7 +211,6 @@
             text-transform: uppercase;
         }
 
-        /* ─── HERO / COVER ─── */
         .hero-section {
             position: relative;
             z-index: 1;
@@ -269,7 +243,6 @@
             pointer-events: none;
         }
 
-        /* ─── SERVER STATUS ─── */
         .server-status {
             display: inline-flex;
             align-items: center;
@@ -307,12 +280,6 @@
             background: #f59e0b;
             box-shadow: 0 0 16px rgba(245, 158, 11, 0.30);
             animation: statusPulse 0.8s ease-in-out infinite;
-        }
-
-        /* ─── CARDS ─── */
-        .card-wrapper {
-            position: relative;
-            z-index: 1;
         }
 
         .card-apple {
@@ -360,7 +327,6 @@
             font-size: 1.2rem;
         }
 
-        /* ─── FORM ─── */
         .form-control {
             background: rgba(10, 14, 26, 0.6);
             border: 1.5px solid rgba(59, 130, 246, 0.12);
@@ -404,7 +370,6 @@
             padding: 14px 24px;
         }
 
-        /* ─── BUTTONS ─── */
         .btn-primary {
             background: linear-gradient(135deg, var(--blue-500), #2563eb);
             border: none;
@@ -445,25 +410,6 @@
             box-shadow: none !important;
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            border: none;
-            border-radius: 14px;
-            font-weight: 600;
-            padding: 10px 24px;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            color: #fff;
-            font-family: var(--font);
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.25);
-            color: #fff;
-        }
-
-        /* ─── PAIRING RESULT ─── */
         #pairingResult {
             font-size: 1.8rem;
             font-weight: 700;
@@ -472,20 +418,32 @@
             text-shadow: 0 0 40px rgba(252, 211, 77, 0.15);
             margin-top: 12px;
             font-family: var(--font);
+            min-height: 80px;
         }
 
         #pairingResult .code-box {
             display: inline-block;
             background: rgba(252, 211, 77, 0.06);
-            padding: 8px 28px;
+            padding: 12px 36px;
             border-radius: 16px;
-            border: 1px solid rgba(252, 211, 77, 0.12);
+            border: 1px solid rgba(252, 211, 77, 0.15);
             font-family: 'SF Mono', 'Courier New', monospace;
-            font-size: 1.6rem;
-            letter-spacing: 4px;
+            font-size: 2rem;
+            letter-spacing: 6px;
+            animation: codeReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 0 60px rgba(252, 211, 77, 0.05);
         }
 
-        /* ─── PROGRESS ─── */
+        #pairingResult .code-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            display: block;
+            animation: fadeInUp 0.6s ease forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
         .progress-container {
             width: 100%;
             background: rgba(255, 255, 255, 0.04);
@@ -521,7 +479,6 @@
             color: var(--blue-400);
         }
 
-        /* ─── STATUS BADGE (PRIVATE) ─── */
         .status-badge {
             padding: 6px 20px;
             border-radius: 30px;
@@ -564,7 +521,6 @@
             box-shadow: 0 0 12px rgba(239, 68, 68, 0.2);
         }
 
-        /* ─── ABOUT SECTION ─── */
         .about-bot {
             display: flex;
             flex-wrap: wrap;
@@ -592,7 +548,6 @@
             font-weight: 600;
         }
 
-        /* ─── LEGAL CARDS ─── */
         .legal-card {
             background: rgba(17, 24, 39, 0.4);
             backdrop-filter: blur(8px);
@@ -621,24 +576,19 @@
             font-size: 0.9rem;
         }
 
-        .legal-card p,
-        .legal-card li {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 4px;
-        }
-
         .legal-card ul {
             padding-left: 20px;
             margin-bottom: 0;
         }
 
         .legal-card ul li {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 4px;
             list-style-type: disc;
         }
 
-        /* ─── FOOTER ─── */
         .footer {
             margin-top: 50px;
             padding: 24px 0 30px;
@@ -670,12 +620,10 @@
             font-weight: 500;
         }
 
-        /* ─── HIDDEN ─── */
         .hidden {
             display: none !important;
         }
 
-        /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             .card-apple {
                 padding: 20px 18px;
@@ -690,8 +638,9 @@
                 font-size: 1.3rem;
             }
             #pairingResult .code-box {
-                font-size: 1.2rem;
-                padding: 6px 18px;
+                font-size: 1.4rem;
+                padding: 10px 24px;
+                letter-spacing: 4px;
             }
             .hero-section img {
                 max-height: 180px;
@@ -721,41 +670,16 @@
                 font-size: 0.85rem;
                 padding: 12px 14px;
             }
-        }
-
-        /* ─── UTILITY ─── */
-        .gap-2 {
-            gap: 8px;
-        }
-        .gap-3 {
-            gap: 16px;
-        }
-        .text-gradient {
-            background: linear-gradient(135deg, #f1f5f9, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .text-gradient-blue {
-            background: linear-gradient(135deg, var(--blue-400), var(--blue-500));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .fw-600 {
-            font-weight: 600;
-        }
-        .letter-1 {
-            letter-spacing: 0.5px;
-        }
-        .border-subtle {
-            border: 1px solid rgba(59, 130, 246, 0.04);
+            #pairingResult .code-box {
+                font-size: 1.2rem;
+                padding: 8px 16px;
+                letter-spacing: 3px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ─── NAVBAR ─── -->
     <nav class="navbar">
         <div class="container">
             <div class="navbar-brand">
@@ -765,7 +689,7 @@
                     <span class="brand-sub">· Bot</span>
                 </span>
             </div>
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-3">
                 <span class="server-status">
                     <span class="dot online" id="serverDot"></span>
                     <span id="serverStatusText">Online</span>
@@ -774,32 +698,29 @@
         </div>
     </nav>
 
-    <!-- ─── MAIN ─── -->
     <div class="container" style="position:relative;z-index:1;padding-top:24px;">
 
-        <!-- HERO / COVER -->
         <div class="hero-section animate-fade-up">
             <img src="https://pixstudiosweb.lk/bot.png" alt="LEWZ MD Bot" loading="lazy" />
             <div class="hero-overlay"></div>
         </div>
 
-        <!-- DASHBOARD -->
-        <div id="userDashboard" class="animate-fade-up" style="animation-delay:0.1s;">
+        <div id="app" class="animate-fade-up" style="animation-delay:0.1s;">
 
-            <!-- STAGE 1 : PAIRING -->
+            <!-- STAGE 1: PAIRING -->
             <div id="stage1">
                 <div class="card-apple">
                     <div class="card-title">
                         <i class="fas fa-link"></i> Connect Your Bot
                         <span style="margin-left:auto;font-size:0.65rem;font-weight:400;color:var(--text-muted);">
-                            <i class="fas fa-shield-alt me-1" style="color:var(--blue-400);"></i> Encrypted
+                            <i class="fas fa-globe me-1" style="color:var(--blue-400);"></i> Public Access
                         </span>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label"><i class="fas fa-phone me-1" style="color:var(--blue-400);"></i> WhatsApp Number</label>
                         <div class="input-group">
-                            <input type="tel" class="form-control" id="pairNumber" placeholder="923001234567" />
+                            <input type="tel" class="form-control" id="phoneInput" placeholder="923001234567" />
                             <button class="btn btn-primary" id="pairBtn">
                                 <i class="fas fa-bolt me-2"></i> Generate Code
                             </button>
@@ -809,7 +730,6 @@
                         </small>
                     </div>
 
-                    <!-- Progress -->
                     <div id="progressContainer" class="progress-container">
                         <div id="progressBar" class="progress-bar"></div>
                         <div class="loading-text">
@@ -821,7 +741,7 @@
                 </div>
             </div>
 
-            <!-- STAGE 2 : CONNECTED (PRIVATE - NO BOT INFO SHOWN) -->
+            <!-- STAGE 2: CONNECTED -->
             <div id="stage2" class="hidden">
                 <div class="card-apple">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
@@ -830,24 +750,24 @@
                                 <span class="dot-sm"></span> Connected
                             </span>
                             <span style="font-size:0.75rem;color:var(--text-muted);margin-left:12px;">
-                                <i class="fas fa-lock me-1"></i> Private session
+                                <i class="fas fa-check-circle me-1" style="color:#4ade80;"></i> Ready
                             </span>
                         </div>
-                        <button class="btn btn-danger btn-sm" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt me-1"></i> Disconnect
-                        </button>
+                        <span style="font-size:0.75rem;color:var(--text-muted);">
+                            <i class="fas fa-phone me-1" style="color:var(--blue-400);"></i>
+                            <span id="connectedNumber">+92 300 1234567</span>
+                        </span>
                     </div>
                     <div style="margin-top:16px;padding:12px 16px;background:rgba(59,130,246,0.04);border-radius:12px;border:1px dashed rgba(59,130,246,0.08);">
                         <p style="font-size:0.8rem;color:var(--text-secondary);margin:0;">
                             <i class="fas fa-shield-alt me-2" style="color:var(--blue-400);"></i>
-                            Your bot is connected. No identifiable information is displayed.
+                            Your bot is connected. This is a public multi-user panel — no personal data is stored.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ABOUT BOT -->
         <div class="card-apple animate-fade-up" style="animation-delay:0.2s;margin-top:24px;">
             <div class="card-title">
                 <i class="fas fa-info-circle"></i> About LEWZ MD
@@ -874,12 +794,11 @@
                 </span>
                 <span class="about-item" style="flex:1;min-width:200px;color:var(--text-muted);font-size:0.8rem;">
                     <i class="fas fa-quote-left" style="color:var(--blue-400);opacity:0.5;"></i>
-                    Advanced WhatsApp automation with privacy at its core.
+                    Multi-user WhatsApp automation with privacy at its core.
                 </span>
             </div>
         </div>
 
-        <!-- ─── PRIVACY POLICY & TERMS ─── -->
         <div class="row g-4 animate-fade-up" style="animation-delay:0.3s;margin-top:8px;">
             <div class="col-md-6">
                 <div class="legal-card">
@@ -907,7 +826,6 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="footer">
             <p class="footer-text">
                 <span class="dev">DEV LEWZ KITHULDENIYA</span>
@@ -917,197 +835,301 @@
                 <span style="opacity:0.4;">LEWZ MD v2.0</span>
                 <span style="opacity:0.2;margin:0 10px;">·</span>
                 <span style="opacity:0.3;font-size:0.7rem;">
-                    <i class="fas fa-lock me-1"></i> Privacy First
+                    <i class="fas fa-users me-1"></i> Multi-User
                 </span>
             </p>
         </div>
     </div>
 
-    <!-- ─── SCRIPTS ─── -->
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js">
     </script>
     <script>
-        const socket = io();
-        let currentUserId = 'LEWZ_MD'; // default bot name
-        let isPairing = false;
+        // ── SIMPLE, CLEAN, REWRITTEN ──
+        (function() {
+            'use strict';
 
-        // ── DOM REFS ──
-        const pairBtn = document.getElementById('pairBtn');
-        const pairNumber = document.getElementById('pairNumber');
-        const progressContainer = document.getElementById('progressContainer');
-        const progressBar = document.getElementById('progressBar');
-        const pairingResult = document.getElementById('pairingResult');
-        const stage1 = document.getElementById('stage1');
-        const stage2 = document.getElementById('stage2');
-        const connectionStatus = document.getElementById('connectionStatus');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const serverDot = document.getElementById('serverDot');
-        const serverStatusText = document.getElementById('serverStatusText');
-        const aboutStatus = document.getElementById('aboutStatus');
+            // ── DOM REFS ──
+            const phoneInput = document.getElementById('phoneInput');
+            const pairBtn = document.getElementById('pairBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const pairingResult = document.getElementById('pairingResult');
+            const stage1 = document.getElementById('stage1');
+            const stage2 = document.getElementById('stage2');
+            const connectionStatus = document.getElementById('connectionStatus');
+            const connectedNumber = document.getElementById('connectedNumber');
+            const serverDot = document.getElementById('serverDot');
+            const serverStatusText = document.getElementById('serverStatusText');
+            const aboutStatus = document.getElementById('aboutStatus');
 
-        // ── SET DEFAULT BOT NAME (PRIVATE) ──
-        socket.emit('set-user', currentUserId);
+            // ── STATE ──
+            let socket = null;
+            let userId = null;
+            let isPairing = false;
+            let pairingTimeout = null;
+            let currentNumber = '';
+            let isConnected = false;
 
-        // ── SOCKET EVENTS ──
+            // ── INIT SOCKET ──
+            function initSocket() {
+                if (socket && socket.connected) return;
 
-        socket.on('pairing-code', (code) => {
-            progressContainer.style.display = 'none';
-            pairingResult.innerHTML = `
-                <span style="font-size:0.85rem;color:var(--text-secondary);display:block;margin-bottom:4px;">
-                    <i class="fas fa-key me-1"></i> Your pairing code
-                </span>
-                <span class="code-box">${code}</span>
-                <div style="font-size:0.7rem;color:var(--text-muted);margin-top:8px;">
-                    <i class="fas fa-clock me-1"></i> Valid for 2 minutes
-                </div>
-            `;
-            isPairing = false;
-            pairBtn.disabled = false;
-            pairBtn.innerHTML = '<i class="fas fa-bolt me-2"></i> Generate Code';
-
-            // update server status
-            serverDot.className = 'dot online';
-            serverStatusText.textContent = 'Online';
-            aboutStatus.innerHTML =
-                `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
-        });
-
-        socket.on('connection-status', (status) => {
-            if (status.connected) {
-                // connected — show only generic "Connected" state, no bot info
-                connectionStatus.className = 'status-badge connected';
-                connectionStatus.innerHTML = `<span class="dot-sm"></span> Connected`;
-                stage1.classList.add('hidden');
-                stage2.classList.remove('hidden');
-                progressContainer.style.display = 'none';
-
-                serverDot.className = 'dot online';
-                serverStatusText.textContent = 'Online';
-                aboutStatus.innerHTML =
-                    `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
-
-                // re-trigger animation
-                stage2.style.animation = 'none';
-                requestAnimationFrame(() => {
-                    stage2.style.animation = 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards';
+                socket = io({
+                    transports: ['websocket', 'polling'],
+                    reconnection: true,
+                    reconnectionAttempts: 10,
+                    reconnectionDelay: 1000
                 });
 
-            } else {
-                // disconnected
-                connectionStatus.className = 'status-badge disconnected';
-                connectionStatus.innerHTML = `<span class="dot-sm"></span> Disconnected`;
-                // don't hide stage1, show disconnected state
-                serverDot.className = 'dot offline';
-                serverStatusText.textContent = 'Offline';
-                aboutStatus.innerHTML =
-                    `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f87171;box-shadow:0 0 12px rgba(239,68,68,0.2);"></span> Offline`;
-            }
-        });
+                socket.on('connect', () => {
+                    console.log('🟢 Socket connected');
+                    updateServerStatus('online', 'Online');
+                });
 
-        // ── PAIR BUTTON ──
-        pairBtn.addEventListener('click', () => {
-            if (isPairing) return;
-            const number = pairNumber.value.trim();
-            if (!number) {
-                pairingResult.innerHTML =
-                    `<span style="color:#f87171;font-size:0.9rem;"><i class="fas fa-exclamation-circle me-2"></i>Please enter your WhatsApp number</span>`;
-                return;
-            }
+                socket.on('disconnect', () => {
+                    console.log('🔴 Socket disconnected');
+                    updateServerStatus('offline', 'Offline');
+                });
 
-            isPairing = true;
-            pairBtn.disabled = true;
-            pairBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Connecting…';
+                socket.on('connect_error', (err) => {
+                    console.error('❌ Connection error:', err.message);
+                    updateServerStatus('offline', 'Offline');
+                });
 
-            pairingResult.innerHTML = '';
-            progressContainer.style.display = 'block';
-            progressBar.style.width = '0%';
+                // ── PAIRING CODE EVENT ──
+                socket.on('pairing-code', (data) => {
+                    console.log('📩 Pairing code received:', data);
 
-            // update server status to pairing
-            serverDot.className = 'dot pairing';
-            serverStatusText.textContent = 'Pairing…';
-            aboutStatus.innerHTML =
-                `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;box-shadow:0 0 12px rgba(245,158,11,0.3);animation:statusPulse 0.8s ease-in-out infinite;"></span> Pairing`;
+                    // Check if this code is for our userId
+                    if (data.userId && data.userId !== userId) {
+                        console.log('⏭️ Ignoring code for different user:', data.userId);
+                        return;
+                    }
 
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 90) {
-                    clearInterval(interval);
-                } else {
-                    width += 2 + Math.random() * 2.5;
-                    if (width > 90) width = 90;
-                    progressBar.style.width = width + '%';
-                }
-            }, 120);
+                    const code = data.code || data;
+                    if (!code) return;
 
-            socket.emit('pair-request', { userId: currentUserId, number });
+                    // Clear timeout
+                    if (pairingTimeout) {
+                        clearTimeout(pairingTimeout);
+                        pairingTimeout = null;
+                    }
 
-            // safety timeout
-            setTimeout(() => {
-                if (isPairing) {
+                    progressContainer.style.display = 'none';
+                    pairingResult.innerHTML = `
+                        <span style="font-size:0.85rem;color:var(--text-secondary);display:block;margin-bottom:8px;">
+                            <i class="fas fa-key me-1"></i> Your pairing code
+                        </span>
+                        <span class="code-box">${code}</span>
+                        <span class="code-hint">
+                            <i class="fas fa-phone me-1"></i> Open WhatsApp → Linked Devices → Link with phone number → Enter this code
+                        </span>
+                    `;
+
                     isPairing = false;
                     pairBtn.disabled = false;
                     pairBtn.innerHTML = '<i class="fas fa-bolt me-2"></i> Generate Code';
-                    clearInterval(interval);
-                    if (progressContainer.style.display !== 'none') {
-                        progressBar.style.width = '100%';
-                        setTimeout(() => {
-                            progressContainer.style.display = 'none';
-                            pairingResult.innerHTML =
-                                `<span style="color:#f87171;font-size:0.9rem;"><i class="fas fa-clock me-2"></i>Request timed out. Please try again.</span>`;
-                            serverDot.className = 'dot online';
-                            serverStatusText.textContent = 'Online';
-                            aboutStatus.innerHTML =
-                                `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
-                        }, 600);
+                    updateServerStatus('online', 'Online');
+                });
+
+                // ── CONNECTION STATUS EVENT ──
+                socket.on('connection-status', (data) => {
+                    console.log('📊 Connection status:', data);
+
+                    // Check if this status is for our userId
+                    if (data.user && data.user !== userId) {
+                        console.log('⏭️ Ignoring status for different user:', data.user);
+                        return;
                     }
-                }
-            }, 18000);
-        });
 
-        // ── LOGOUT ──
-        logoutBtn.addEventListener('click', () => {
-            socket.emit('logout', currentUserId);
-            stage2.classList.add('hidden');
-            stage1.classList.remove('hidden');
-            connectionStatus.className = 'status-badge disconnected';
-            connectionStatus.innerHTML = `<span class="dot-sm"></span> Disconnected`;
-            pairingResult.innerHTML = '';
-            progressContainer.style.display = 'none';
+                    const connected = data.connected === true;
 
-            serverDot.className = 'dot online';
-            serverStatusText.textContent = 'Online';
-            aboutStatus.innerHTML =
-                `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
+                    if (connected && !isConnected) {
+                        isConnected = true;
+                        connectionStatus.className = 'status-badge connected';
+                        connectionStatus.innerHTML = `<span class="dot-sm"></span> Connected`;
 
-            pairBtn.disabled = false;
-            pairBtn.innerHTML = '<i class="fas fa-bolt me-2"></i> Generate Code';
-            isPairing = false;
+                        stage1.classList.add('hidden');
+                        stage2.classList.remove('hidden');
+                        progressContainer.style.display = 'none';
 
-            // re-trigger animation on stage1
-            stage1.style.animation = 'none';
-            requestAnimationFrame(() => {
-                stage1.style.animation = 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards';
-            });
-        });
+                        if (currentNumber) {
+                            const masked = currentNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1 $2 $3');
+                            connectedNumber.textContent = '+ ' + masked;
+                        }
 
-        // ── ENTER KEY ──
-        pairNumber.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') pairBtn.click();
-        });
+                        updateServerStatus('online', 'Online');
 
-        // ── INITIAL STATUS ──
-        serverDot.className = 'dot online';
-        serverStatusText.textContent = 'Online';
-        aboutStatus.innerHTML =
-            `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
+                        if (pairingTimeout) {
+                            clearTimeout(pairingTimeout);
+                            pairingTimeout = null;
+                        }
 
-        // small welcome in pairing result
-        setTimeout(() => {
-            if (!pairingResult.innerHTML) {
-                pairingResult.innerHTML =
-                    `<span style="color:var(--text-muted);font-size:0.8rem;opacity:0.6;"><i class="fas fa-arrow-up me-2"></i>Enter your number and generate a code</span>`;
+                        stage2.style.animation = 'none';
+                        requestAnimationFrame(() => {
+                            stage2.style.animation = 'fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards';
+                        });
+
+                    } else if (!connected && isConnected) {
+                        isConnected = false;
+                        connectionStatus.className = 'status-badge disconnected';
+                        connectionStatus.innerHTML = `<span class="dot-sm"></span> Disconnected`;
+                        updateServerStatus('offline', 'Offline');
+                    }
+                });
+
+                // ── TOTAL ACTIVE USERS ──
+                socket.on('total-active', (count) => {
+                    // Optional: update UI with active users count
+                    console.log('👥 Active users:', count);
+                });
+
+                // ── CONSOLE LOGS ──
+                socket.on('console', (log) => {
+                    console.log(`[${log.timestamp || 'NOW'}] ${log.message}`);
+                });
             }
-        }, 400);
+
+            // ── UPDATE SERVER STATUS ──
+            function updateServerStatus(status, text) {
+                serverDot.className = 'dot ' + status;
+                serverStatusText.textContent = text;
+
+                if (status === 'online') {
+                    aboutStatus.innerHTML =
+                        `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px rgba(34,197,94,0.3);"></span> Active`;
+                } else if (status === 'offline') {
+                    aboutStatus.innerHTML =
+                        `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f87171;box-shadow:0 0 12px rgba(239,68,68,0.2);"></span> Offline`;
+                } else if (status === 'pairing') {
+                    aboutStatus.innerHTML =
+                        `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;box-shadow:0 0 12px rgba(245,158,11,0.3);animation:statusPulse 0.8s ease-in-out infinite;"></span> Pairing`;
+                }
+            }
+
+            // ── GENERATE USER ID ──
+            function generateUserId() {
+                return 'web_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+            }
+
+            // ── PAIR BUTTON ──
+            pairBtn.addEventListener('click', function() {
+                if (isPairing) return;
+
+                const number = phoneInput.value.trim();
+                if (!number) {
+                    pairingResult.innerHTML =
+                        `<span style="color:#f87171;font-size:0.9rem;"><i class="fas fa-exclamation-circle me-2"></i>Please enter your WhatsApp number</span>`;
+                    return;
+                }
+
+                // Generate unique userId for this session
+                userId = generateUserId();
+                currentNumber = number;
+
+                // Ensure socket is connected
+                if (!socket || !socket.connected) {
+                    initSocket();
+                    // Wait a moment for connection
+                    setTimeout(() => {
+                        if (socket && socket.connected) {
+                            startPairing(number);
+                        } else {
+                            pairingResult.innerHTML =
+                                `<span style="color:#f87171;font-size:0.9rem;"><i class="fas fa-wifi me-2"></i>Cannot connect to server. Please refresh.</span>`;
+                        }
+                    }, 500);
+                } else {
+                    startPairing(number);
+                }
+            });
+
+            function startPairing(number) {
+                isPairing = true;
+                pairBtn.disabled = true;
+                pairBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Connecting…';
+
+                pairingResult.innerHTML = '';
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+
+                updateServerStatus('pairing', 'Pairing…');
+
+                // Animate progress bar
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 90) {
+                        clearInterval(interval);
+                    } else {
+                        width += 2 + Math.random() * 2.5;
+                        if (width > 90) width = 90;
+                        progressBar.style.width = width + '%';
+                    }
+                }, 120);
+
+                // Register user with server FIRST
+                socket.emit('set-user', userId);
+                console.log('📤 Registered user:', userId);
+
+                // Small delay to ensure registration completes
+                setTimeout(() => {
+                    // Send pairing request
+                    socket.emit('pair-request', {
+                        userId: userId,
+                        number: number
+                    });
+                    console.log('📤 Pair request sent for:', number);
+                }, 300);
+
+                // Timeout after 60 seconds
+                if (pairingTimeout) clearTimeout(pairingTimeout);
+                pairingTimeout = setTimeout(() => {
+                    if (isPairing) {
+                        isPairing = false;
+                        pairBtn.disabled = false;
+                        pairBtn.innerHTML = '<i class="fas fa-bolt me-2"></i> Generate Code';
+                        clearInterval(interval);
+                        progressContainer.style.display = 'none';
+                        pairingResult.innerHTML = `
+                            <span style="color:#f59e0b;font-size:0.95rem;">
+                                <i class="fas fa-clock me-2"></i> Still waiting for code...
+                            </span>
+                            <div style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">
+                                <i class="fas fa-redo me-1"></i> If you don't see the code on WhatsApp, click "Generate Code" again.
+                            </div>
+                        `;
+                        updateServerStatus('online', 'Online');
+                    }
+                }, 60000);
+            }
+
+            // ── ENTER KEY ──
+            phoneInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') pairBtn.click();
+            });
+
+            // ── INIT ──
+            initSocket();
+
+            // ── WELCOME MESSAGE ──
+            setTimeout(() => {
+                if (!pairingResult.innerHTML) {
+                    pairingResult.innerHTML =
+                        `<span style="color:var(--text-muted);font-size:0.8rem;opacity:0.6;"><i class="fas fa-arrow-up me-2"></i>Enter your number and generate a code</span>`;
+                }
+            }, 400);
+
+            // ── RECONNECT LOGIC ──
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && socket && !socket.connected) {
+                    socket.connect();
+                }
+            });
+
+            console.log('🚀 LEWZ MD Web Panel initialized');
+            console.log('ℹ️  Session will use userId:', userId || '(not set yet)');
+
+        })();
     </script>
 
 </body>

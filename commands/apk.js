@@ -1,9 +1,3 @@
-
-
-
-const axios = require('axios');
-
-
 /**
  * APK Downloader Command
  * Fetches APK details & downloads the file using NexOracle API.
@@ -29,16 +23,25 @@ async function apkCommand(sock, chatId, message) {
     // React with hourglass while processing
     await sock.sendMessage(chatId, { react: { text: '⏳', key: message.key } });
 
-    // API call to NexOracle
+    // API call to NexOracle using fetch
     const apiUrl = 'https://api.nexoracle.com/downloader/apk';
-    const params = {
-      apikey: 'free_key@maher_apis', // Replace with your API key if needed
+    const params = new URLSearchParams({
+      apikey: 'free_key@maher_apis',
       q: appName,
-    };
+    });
 
-    const response = await axios.get(apiUrl, { params });
+    const response = await fetch(`${apiUrl}?${params}`, {
+      method: 'GET',
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
 
-    if (!response.data || response.data.status !== 200 || !response.data.result) {
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data || data.status !== 200 || !data.result) {
       await sock.sendMessage(
         chatId,
         { text: '❌ Unable to find the APK. Please try again later.' },
@@ -47,7 +50,7 @@ async function apkCommand(sock, chatId, message) {
       return;
     }
 
-    const { name, lastup, package, size, icon, dllink } = response.data.result;
+    const { name, lastup, package: pkgName, size, icon, dllink } = data.result;
 
     // Send thumbnail preview
     await sock.sendMessage(
@@ -59,9 +62,19 @@ async function apkCommand(sock, chatId, message) {
       { quoted: message }
     );
 
-    // Download APK file
-    const apkResponse = await axios.get(dllink, { responseType: 'arraybuffer' });
-    if (!apkResponse.data) {
+    // Download APK file using fetch
+    const apkResponse = await fetch(dllink, {
+      method: 'GET',
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+
+    if (!apkResponse.ok) {
+      throw new Error(`Failed to download APK: ${apkResponse.status}`);
+    }
+
+    const apkBuffer = await apkResponse.buffer();
+
+    if (!apkBuffer || apkBuffer.length === 0) {
       await sock.sendMessage(
         chatId,
         { text: '❌ Failed to download the APK. Please try again later.' },
@@ -70,13 +83,11 @@ async function apkCommand(sock, chatId, message) {
       return;
     }
 
-    const apkBuffer = Buffer.from(apkResponse.data, 'binary');
-
     // Format message with details
     const details = `📦 *APK Details* 📦\n\n` +
       `🔖 *Name*: ${name}\n` +
       `📅 *Last Update*: ${lastup}\n` +
-      `📦 *Package*: ${package}\n` +
+      `📦 *Package*: ${pkgName}\n` +
       `📏 *Size*: ${size}\n\n` +
       `> © POWERED BY LEWZ MD`;
 
@@ -88,7 +99,6 @@ async function apkCommand(sock, chatId, message) {
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${name}.apk`,
         caption: details
-        
       },
       { quoted: message }
     );
